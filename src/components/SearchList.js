@@ -1,58 +1,61 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import addBtnImg from "../img/svg/stock-+.svg";
 
 const SearchList_styled = styled.ul`
-  /* width: 80%; */
+  width: 100%;
   /* height: 100%; */
   overflow: auto;
   position: absolute;
+  padding: 0 37px 0 38px;
 
   /* z-index: 5; */
   li {
-    background-color: #f1f1f1;
-    border-bottom: 1px solid black;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 7px #e9e4dc;
+    border-radius: 5px;
+    margin-bottom: 4px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 0.2);
+    padding: 7px 17px 8px 16px;
     .context {
-      padding-left: 0.2rem;
       p.name {
+        font-family: "Noto Sans TC";
         font-size: 1rem;
+        font-weight: 500;
+        line-height: 23px;
+        letter-spacing: 0.09em;
+        color: #717171;
       }
       p.code {
-        font-size: 0.5rem;
+        font-family: "Noto Sans TC";
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0.09em;
+        color: #717171;
       }
     }
     button.addBtn {
-      width: 1.6rem;
-      height: 1.6rem;
-      border: none;
-      margin-right: 0.6rem;
-      border-radius: 0.7rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      background: #ffffff;
+      border: 1px solid #e9e4dc;
+      box-shadow: inset 0px -2px 6px #d5d2b7;
+      border-radius: 0.875rem;
+      margin: 3px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      :hover {
+        box-shadow: inset 0px -2px 6px #a57d48;
+      }
     }
-    &:hover {
-      background-color: #f7f7f7;
-    }
-  }
-`;
-
-const StyledScrollbars = styled(CustomScrollbars)`
-  /* Hide the default scrollbar */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Style the thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-  }
-
-  /* Style the track */
-  ::-webkit-scrollbar-track {
-    background-color: #eee;
   }
 `;
 
@@ -68,14 +71,33 @@ function CustomScrollbars(props) {
       style={{
         position: "absolute",
         zIndex: "5",
-        top: "2.6rem",
-        height: "15.4rem",
+        top: "83px",
+
+        height: "205px",
       }}
     >
       {props.children}
     </Scrollbars>
   );
 }
+
+const StyledScrollbars = styled(CustomScrollbars)`
+  /* Hide the default scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Style the thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888888;
+    border-radius: 10px;
+  }
+
+  /* Style the track */
+  ::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+`;
 
 const SearchList = ({
   filterData,
@@ -140,7 +162,7 @@ const SearchList = ({
                   <p className="code">{d.Code}</p>
                 </div>
                 <button className="addBtn" onClick={() => addStockHandler(d)}>
-                  +
+                  <img src={addBtnImg} alt="add button" />
                 </button>
               </li>
             );

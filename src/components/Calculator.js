@@ -4,9 +4,34 @@ import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 
 const Calculator_style = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 4.5rem);
   grid-template-rows: minmax(6rem, auto) repeat(5, 2.5rem);
+
+  div.title {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #66546c;
+    font-family: "Noto Sans TC";
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    font-size: 1rem;
+    width: 119px;
+    height: 33px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #eaeaea;
+    border-radius: 20px;
+    box-shadow: 0px 2px 6px rgba(185, 169, 129, 0.53);
+  }
+
   button {
     margin: 0;
     border: 1px solid white;
@@ -193,6 +218,7 @@ const Calculator = () => {
   );
   return (
     <Calculator_style>
+      <div className="title">計算機工具</div>
       <div className="output">
         <div className="previous-operand">
           {formatOperand(previosOperand)}

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const ClockDiv = styled.div`
-  margin-top: 1rem;
-  font-size: 4rem;
+  font-size: 96px;
+  line-height: 173px;
+  letter-spacing: 0.065em;
   transition: all 0.2s ease;
-  color: ${(props) => (props.IsDarkMode ? "white" : "black")};
+  color: ${(props) => (props.IsDarkMode ? "white" : "#66546C")};
+  margin-right: 50px;
 `;
 
 const Clock = ({ IsDarkMode }) => {

@@ -4,9 +4,11 @@ import Weather from "../components/Weather";
 import ChooseWidget from "../components/ChooseWidget";
 import { DesktopDiv } from "./DesktopDiv";
 import GoogleLoginSystem from "../components/GoogleLoginSystem";
+import sunImg from "../img/svg/darkmode_sun.svg";
+import moonImg from "../img/svg/darkmode_moon.svg";
 
 const Desktop = () => {
-  let [IsDarkMode, setDarkMode] = useState(false);
+  const [IsDarkMode, setDarkMode] = useState(false);
   const darkModeHandler = (e) => {
     e.preventDefault();
     setDarkMode(!IsDarkMode);
@@ -16,18 +18,43 @@ const Desktop = () => {
 
   return (
     <DesktopDiv IsDarkMode={IsDarkMode}>
-      <button className="darkMode" onClick={darkModeHandler}>
-        <span className="switch"></span>
-      </button>
-      <Clock IsDarkMode={IsDarkMode} />
-      <GoogleLoginSystem user={user} setUser={setUser} />
-      <Weather />
+      <div className="navbar">
+        <button className="darkMode" onClick={darkModeHandler}>
+          <span className="switch">
+            <img src={IsDarkMode ? moonImg : sunImg} alt="darkmode icon" />
+          </span>
+        </button>
+        <GoogleLoginSystem user={user} setUser={setUser} />
+      </div>
+
+      <div className="top">
+        <Clock IsDarkMode={IsDarkMode} />
+
+        <Weather IsDarkMode={IsDarkMode} />
+      </div>
+
       <div className="happyZone">
         <div className="littleDiv">
           <ChooseWidget user={user} setUser={setUser} />
         </div>
-        <div className="littleDiv"></div>
-        <div className="littleDiv"></div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
+        <div className="littleDiv">
+          <ChooseWidget user={user} setUser={setUser} />
+        </div>
         <div className="littleDiv">
           <ChooseWidget user={user} setUser={setUser} />
         </div>

@@ -13,9 +13,49 @@ const SearchDiv = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  div.title {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #66546c;
+    font-family: "Noto Sans TC";
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    font-size: 1rem;
+    width: 119px;
+    height: 33px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #eaeaea;
+    border-radius: 20px;
+    box-shadow: 0px 2px 6px rgba(185, 169, 129, 0.53);
+  }
+
   input {
-    margin-top: 1rem;
-    padding: 0.2rem 2rem 0.2rem 0.1rem;
+    margin: 38px 0px 0px 0px;
+    padding: 6px 0;
+    width: 251px;
+
+    background: #ffffff;
+    border-radius: 5px;
+    border: none;
+    box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.25);
+
+    font-family: "Noto Sans TC";
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.09em;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 `;
 
@@ -50,7 +90,7 @@ const StockWidget = ({ user, setUser }) => {
     // get all stocks' data
     getTW_all_stocks();
 
-    //get user's stock watching list data
+    //get user's stock adding list data
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const stockListRef = ref(db, `users/${user.uid}/stockList`);
@@ -102,8 +142,10 @@ const StockWidget = ({ user, setUser }) => {
   let token = "2474e1d2a94d1f54034ecafac921bf2d";
   useEffect(() => {
     if (addingList.length > 0) {
-      const stockListRef = ref(db, `users/${user.uid}/stockList`);
-      set(stockListRef, addingList);
+      if (user) {
+        const stockListRef = ref(db, `users/${user.uid}/stockList`);
+        set(stockListRef, addingList);
+      }
 
       const getTW_real_time_stocks = async () => {
         let urls = addingList.map(
@@ -169,8 +211,9 @@ const StockWidget = ({ user, setUser }) => {
 
   return (
     <SearchDiv>
+      <div className="title">查看股票</div>
       <input
-        placeholder="輸入股票代號或名稱..."
+        placeholder="請輸入股票代號或名稱"
         onCompositionStart={searchInputHandler}
         onCompositionUpdate={searchInputHandler}
         onCompositionEnd={searchInputHandler}
@@ -192,7 +235,11 @@ const StockWidget = ({ user, setUser }) => {
         />
       ) : null}
 
-      <WatchingList watchingList={watchingList} />
+      <WatchingList
+        watchingList={watchingList}
+        addingList={addingList}
+        setAddingList={setAddingList}
+      />
     </SearchDiv>
   );
 };

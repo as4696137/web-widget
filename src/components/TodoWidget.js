@@ -1,68 +1,21 @@
 import React, { useReducer, useRef, useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import {
+  TodoListContainer,
+  TodoItemContainer,
+  TodoCheckbox,
+  TodoInput,
+  TodoDeleteButton,
+} from "./style components/TodoWidget_style";
 import { app, auth } from "./GoogleLoginSystem";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
+import deleteBtnImg from "../img/svg/todo-X.svg";
 
-const Underline_ani = keyframes`
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-`;
-
-const TodoListContainer = styled.div`
-  margin: 0 1rem;
-  padding: 1rem 0;
-  width: 100%;
-  height: 100%;
-`;
-
-const TodoItemContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-`;
-
-const TodoCheckbox = styled.input`
-  margin-right: 0.5rem;
-  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
-`;
-
-const TodoInput = styled.input`
-  width: 100%;
-  margin-right: 0.1rem;
-  font-size: 1.2rem;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
-  opacity: ${({ completed }) => (completed ? "0.3" : "1")};
-  &:focus {
-    animation: ${Underline_ani} ease-out 0.2s forwards;
-  }
-  &:focus-visible {
-    outline: none;
-  }
-`;
-
-const TodoDeleteButton = styled.button`
-  margin-left: 5px;
-  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
-  opacity: ${({ disabled }) => (disabled ? "0" : "0.3")};
-  background: none;
-  border: none;
-  &:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-`;
-
-// ===================  id=創建時間 , text=todo字串 , completed=有沒有打勾 , newtodo=是不是新增的空白todo
-const initialState = [{ id: 0, text: "", completed: false, newTodo: true }];
+// == id=創建時間 , text=todo字串 , completed=有沒有打勾 ,
+// == newtodo=是不是新增的空白todo , rows=有幾行
+const initialState = [
+  { id: 0, text: "", completed: false, newTodo: true, rows: 1 },
+];
 
 function reducer(state, action) {
   switch (action.type) {
@@ -83,19 +36,31 @@ function reducer(state, action) {
             completed: false,
             pressEnter: true,
             newTodo: true,
+            rows: 1,
           },
         ];
       } else {
         return [
           ...state,
-          { id: Date.now(), text: "", completed: false, newTodo: true },
+          {
+            id: Date.now(),
+            text: "",
+            completed: false,
+            newTodo: true,
+            rows: 1,
+          },
         ];
       }
 
     case "UPDATE_TODO_TEXT":
       return state.map((todo) =>
         todo.id === action.payload.id
-          ? { ...todo, text: action.payload.text, newTodo: false }
+          ? {
+              ...todo,
+              text: action.payload.text,
+              newTodo: false,
+              rows: action.payload.renderRows,
+            }
           : todo
       );
     case "TOGGLE_TODO_COMPLETED":
@@ -147,8 +112,36 @@ const TodoWidget = ({ user, setUser }) => {
     }
   }, [authStateChangedCalled]);
 
-  const handleUpdateTodoText = (id, text) => {
-    dispatch({ type: "UPDATE_TODO_TEXT", payload: { id, text } });
+  //拿到todo內容全部變成一行排排站的總寬度(px)
+  const getTextWidth = (text, element) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const style = window.getComputedStyle(element);
+
+    context.font = `${style.fontSize} ${style.fontFamily}`;
+    const metrics = context.measureText(text);
+
+    return metrics.width;
+  };
+
+  const handleUpdateTodoText = (id, text, event) => {
+    //const textareaLineHeight = 26;
+    const textarea = event.target;
+
+    const containerWidth = textarea.offsetWidth;
+    const textWidth = getTextWidth(textarea.value, textarea);
+
+    let renderRows = 1;
+    const currentRows = Math.ceil(textWidth / containerWidth);
+
+    if (currentRows === Infinity) {
+      renderRows = 1;
+    } else if (currentRows < 1) {
+      renderRows = 1;
+    } else {
+      renderRows = currentRows;
+    }
+    dispatch({ type: "UPDATE_TODO_TEXT", payload: { id, text, renderRows } });
   };
 
   const handleToggleTodoCompleted = (id) => {
@@ -181,6 +174,7 @@ const TodoWidget = ({ user, setUser }) => {
         if (nextInputRef) {
           nextInputRef.focus();
         }
+        console.log("YOOOOOOO");
         dispatch({ type: "FOCUS_NEXT_TODO", payload: todo.id });
       }
     });
@@ -196,6 +190,7 @@ const TodoWidget = ({ user, setUser }) => {
 
   return (
     <TodoListContainer>
+      <div className="title">待辦事項</div>
       {todos.map((todo, index) => (
         <TodoItemContainer key={todo.id}>
           <TodoCheckbox
@@ -204,11 +199,13 @@ const TodoWidget = ({ user, setUser }) => {
             disabled={todo.text.trim() === ""}
             onChange={() => handleToggleTodoCompleted(todo.id)}
           />
+
           <TodoInput
-            type="text"
+            rows={todo.rows}
             value={todo.text}
+            isNull={todo.text.trim() === "" ? true : false}
             completed={todo.completed}
-            onChange={(e) => handleUpdateTodoText(todo.id, e.target.value)}
+            onChange={(e) => handleUpdateTodoText(todo.id, e.target.value, e)}
             onKeyPress={(e) => {
               if (todo.text.trim() !== "") {
                 handleTodoInputKeyPress(e, index);
@@ -227,9 +224,11 @@ const TodoWidget = ({ user, setUser }) => {
                 handleDeleteTodo(todo.id);
               }
             }}
-            disabled={todo.newTodo || todos.length === 1}
+            disabled={
+              todo.newTodo || todos.length === 1 || todo.text.trim() === ""
+            }
           >
-            X
+            <img src={deleteBtnImg} alt="delete button" />
           </TodoDeleteButton>
         </TodoItemContainer>
       ))}
