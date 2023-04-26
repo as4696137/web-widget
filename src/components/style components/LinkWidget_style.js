@@ -1,4 +1,44 @@
 import styled from "styled-components";
+import { Scrollbars } from "react-custom-scrollbars-2";
+
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      autoHide
+      autoHideTimeout={1000}
+      autoHideDuration={200}
+      style={{
+        position: "absolute",
+        top: "30px",
+        height: "250px",
+        zIndex: "3",
+      }}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
+
+export const StyledScrollbars = styled(CustomScrollbars)`
+  height: 200px;
+  width: 100px;
+
+  /* Hide the default scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Style the thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  /* Style the track */
+  ::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+`;
 
 export const Title = styled.div`
   position: absolute;
@@ -19,6 +59,7 @@ export const Title = styled.div`
   border: 1px solid #eaeaea;
   border-radius: 20px;
   box-shadow: 0px 2px 6px rgba(185, 169, 129, 0.53);
+  z-index: 10;
 `;
 
 export const LinkWidget_style = styled.div`
@@ -29,9 +70,12 @@ export const LinkWidget_style = styled.div`
   justify-content: start;
   align-items: flex-start;
   align-content: flex-start;
+  padding: 0 24px 0 31px;
+
+  z-index: 5;
   a.link-app {
     height: fit-content;
-    margin: 1rem 0 0 1rem;
+    padding: 8px 7px 8px 0;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -46,7 +90,6 @@ export const LinkWidget_style = styled.div`
         opacity: 1;
       }
       div.icon {
-        background-color: #818181;
       }
     }
 
@@ -59,8 +102,8 @@ export const LinkWidget_style = styled.div`
       justify-content: center;
       align-items: center;
       position: absolute;
-      top: -0.5rem;
-      right: -0.5rem;
+      top: 0;
+      right: 0;
       opacity: 0;
       transition: all 0.2s ease-in-out;
       background-color: #e9e9e9;
@@ -76,10 +119,12 @@ export const LinkWidget_style = styled.div`
     }
 
     div.icon {
-      height: 3.25rem;
-      width: 3.25rem;
-      border-radius: 0.5rem;
-      background-color: #6b6b6b;
+      height: 60px;
+      width: 60px;
+      border-radius: 5px;
+      background: #ffffff;
+      border: 1px solid #e9e4dc;
+      box-shadow: inset 0px -2px 6px #d5d2b7;
 
       display: flex;
       justify-content: center;
@@ -91,38 +136,57 @@ export const LinkWidget_style = styled.div`
     }
 
     p {
-      font-size: 0.8rem;
-      padding-top: 0.3rem;
-      line-height: 1rem;
+      font-family: "Noto Sans TC";
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 14px;
+      letter-spacing: 0.09em;
+      color: #595959;
+
+      padding-top: 5px;
     }
   }
   div.addLink {
-    margin: 1rem 0 0 1rem;
+    padding: 8px 7px 8px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     &:hover {
       cursor: pointer;
       div.icon {
-        background-color: #818181;
+        box-shadow: inset 0px -2px 13px rgba(0, 0, 0, 0.25);
+        img {
+          transform: translate(-1px, -1px);
+        }
       }
     }
     div.icon {
-      height: 3.25rem;
-      width: 3.25rem;
+      height: 60px;
+      width: 60px;
       border: none;
-      border-radius: 0.5rem;
-      font-size: 2.5rem;
-      background-color: #6b6b6b;
-      color: white;
+      background: #d8ccb8;
+      box-shadow: inset 2px 3px 13px rgba(0, 0, 0, 0.25);
+      border-radius: 11px;
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.5s ease;
+      img {
+        height: 23px;
+        width: 23px;
+        transform: translate(1px, 1px);
+        transition: all 0.5s ease;
+      }
     }
     p {
-      font-size: 0.8rem;
+      font-family: "Noto Sans TC";
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 14px;
+      letter-spacing: 0.09em;
+      color: #595959;
 
-      padding-top: 0.1rem;
+      padding-top: 5px;
     }
   }
 `;
@@ -132,27 +196,50 @@ export const PopupEditButton = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 325px;
+  height: 325px;
+  background: linear-gradient(
+    180deg,
+    rgba(215, 212, 216, 0.9) 0%,
+    #ffffff 60.42%
+  );
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   div.popup {
-    width: 200px;
-    background-color: white;
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: start;
     button {
       display: flex;
       align-items: center;
+      padding: 7.5px 33px 7.5px 21px;
+
+      font-family: "Noto Sans TC";
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.09em;
+      color: #595959;
+
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      box-shadow: inset 0px -3px 12px rgba(0, 0, 0, 0.17);
+      border-radius: 10px;
+      cursor: pointer;
       img {
-        height: 1rem;
-        width: 1rem;
-        margin: 0 0.2rem;
+        height: 13px;
+        width: 13px;
+        margin-right: 10px;
       }
+      &:hover {
+        background: #fffcf1;
+      }
+    }
+
+    button.edit {
+      margin-bottom: 16px;
     }
   }
 `;
@@ -162,17 +249,21 @@ export const PopupAddLink = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 325px;
+  height: 325px;
+  background: linear-gradient(
+    180deg,
+    rgba(215, 212, 216, 0.9) 0%,
+    #ffffff 60.42%
+  );
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   div.popup {
-    width: 200px;
-    height: 200px;
-    background-color: white;
-    border-radius: 5px;
+    width: 244px;
+    height: 250px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -181,10 +272,74 @@ export const PopupAddLink = styled.div`
       display: flex;
       flex-direction: column;
     }
+    label {
+      width: 119px;
+      height: 33px;
+      margin-bottom: 8px;
+      align-items: center;
+      padding: 5px 25px;
+
+      background: #c1bac4;
+      border: 1px solid #eaeaea;
+      box-shadow: inset 0px -3px 12px rgba(0, 0, 0, 0.42);
+      border-radius: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Noto Sans TC";
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 23px;
+      letter-spacing: 0.09em;
+      color: #ffffff;
+    }
+    input {
+      background: #ffffff;
+      box-shadow: inset 0px 2px 6px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      padding: 0 19px 0 25px;
+      border: none;
+      margin-bottom: 16px;
+      width: 100%;
+      height: 40px;
+
+      font-family: "Noto Sans TC";
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 23px;
+      letter-spacing: 0.09em;
+    }
     div.button {
       text-align: end;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
       button {
-        margin: 0.3rem;
+        width: 115px;
+        height: 50px;
+        background: #ffffff;
+        border: 1px solid #eaeaea;
+        box-shadow: inset 0px -3px 12px rgba(0, 0, 0, 0.17);
+        border-radius: 15px;
+
+        font-family: "Noto Sans TC";
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: 0.09em;
+        color: #595959;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+
+        transition: all 0.1s ease-in;
+        &:hover {
+          box-shadow: inset 0px -4px 13px rgba(0, 0, 0, 0.26);
+        }
       }
     }
   }

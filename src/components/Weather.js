@@ -4,7 +4,8 @@ import { ReactComponent as Sunny } from "../img/svg/weather-sunny.svg";
 import { ReactComponent as Cloudy } from "../img/svg/weather-cloudy.svg";
 import { ReactComponent as Rainy } from "../img/svg/weather-rainy.svg";
 import { ReactComponent as Drizzle } from "../img/svg/weather-drizzle.svg";
-import { ReactComponent as Stormy } from "../img/svg/weather-stormy.svg";
+import { ReactComponent as Stormy } from "../img/svg/weather-thounder.svg";
+import { ReactComponent as someCloud } from "../img/svg/weather-someCloud.svg";
 
 const WeatherDiv = styled.div`
   & path {
@@ -92,7 +93,7 @@ const Weather = ({ IsDarkMode }) => {
 
         //多雲時晴
         case id === 801:
-          setWeatherImage("Sunny");
+          setWeatherImage("someCloud");
           break;
 
         //多雲
@@ -114,6 +115,7 @@ const Weather = ({ IsDarkMode }) => {
       {weatherImage === "Drizzle" && <Drizzle />}
       {weatherImage === "Rainy" && <Rainy />}
       {weatherImage === "Cloudy" && <Cloudy />}
+      {weatherImage === "someCloud" && <someCloud />}
       {data && (
         <div className="weatherInfo">
           <p className="temp">

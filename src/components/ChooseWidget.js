@@ -58,6 +58,8 @@ const ChooseDiv = styled.div`
     justify-content: center;
     align-items: center;
 
+    z-index: 20;
+
     img {
       filter: drop-shadow(0px 2px 2px rgba(217, 191, 140, 0.41));
     }

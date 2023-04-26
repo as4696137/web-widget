@@ -1,39 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+
+//img
 import webDefultImage from "../img/svg/globe-solid.svg";
 import editImage from "../img/svg/pen-solid.svg";
 import deleteImage from "../img/svg/trash-solid.svg";
-import { Scrollbars } from "react-custom-scrollbars-2";
+import addLinkImg from "../img/svg/link-+.svg";
+
+//auth & database
 import { app, auth } from "./GoogleLoginSystem";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
+
+//style
 import {
   Title,
   LinkWidget_style,
   PopupEditButton,
   PopupAddLink,
+  StyledScrollbars,
 } from "./style components/LinkWidget_style";
-
-const StyledScrollbars = styled(Scrollbars)`
-  height: 200px;
-  width: 100px;
-
-  /* Hide the default scrollbar */
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Style the thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-  }
-
-  /* Style the track */
-  ::-webkit-scrollbar-track {
-    background-color: #eee;
-  }
-`;
 
 const db = getDatabase(app);
 
@@ -76,7 +61,7 @@ const LinkWidget = ({ user, setUser }) => {
         });
       } else {
         setUser(null);
-        setLinkList([]);
+        setLinkList([...linkList]);
       }
     });
   }, []);
@@ -189,7 +174,7 @@ const LinkWidget = ({ user, setUser }) => {
   return (
     <>
       <Title>連結收藏</Title>
-      <StyledScrollbars autoHide autoHideTimeout={1000} autoHideDuration={200}>
+      <StyledScrollbars>
         <LinkWidget_style>
           {linkList &&
             linkList.map((link, index) => (
@@ -216,7 +201,9 @@ const LinkWidget = ({ user, setUser }) => {
             ))}
 
           <div className="addLink" onClick={addLinkHandler}>
-            <div className="icon">+</div>
+            <div className="icon">
+              <img src={addLinkImg} alt="add link button" />
+            </div>
             <p>新增網站</p>
           </div>
 
@@ -243,19 +230,23 @@ const LinkWidget = ({ user, setUser }) => {
             >
               <div className="popup" onMouseDown={(e) => e.stopPropagation()}>
                 <div className="input">
-                  <label htmlFor="web-name">名稱</label>
+                  <label className="web-name" htmlFor="web-name">
+                    名稱
+                  </label>
                   <input
                     id="web-name"
                     type="text"
-                    placeholder="網站名稱"
+                    placeholder="填寫網站名稱"
                     onChange={webNameInputHandler}
                     value={inputData.webName}
                   />
-                  <label htmlFor="web-link">網址</label>
+                  <label className="web-link" htmlFor="web-link">
+                    網址
+                  </label>
                   <input
                     id="web-link"
                     type="text"
-                    placeholder="網址"
+                    placeholder="填寫網址"
                     onChange={webLinkInputHandler}
                     value={inputData.webLink}
                   />

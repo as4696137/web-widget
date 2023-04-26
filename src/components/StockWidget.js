@@ -194,10 +194,11 @@ const StockWidget = ({ user, setUser }) => {
     function auto_update_stocks_data() {
       setUpdateTimer((p) => p + 1);
     }
-    console.log(isClosed);
-    if (isClosed === false) {
+
+    if (isClosed == false) {
       setInterval(auto_update_stocks_data, 5000);
-    } else {
+    } else if (isClosed == true) {
+      console.log(isClosed);
       clearInterval(auto_update_stocks_data);
     }
   }, [isClosed]);
