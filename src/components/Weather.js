@@ -35,6 +35,25 @@ const WeatherDiv = styled.div`
       line-height: 32px;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    div.weatherInfo {
+      margin-left: 15px;
+      p.temp {
+        padding-bottom: 6px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    justify-content: center;
+    div.weatherInfo {
+      margin-left: 10px;
+      p.temp {
+        padding-bottom: 4px;
+      }
+    }
+  }
 `;
 
 const Weather = ({ IsDarkMode }) => {

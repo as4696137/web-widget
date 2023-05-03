@@ -8,6 +8,11 @@ const ClockDiv = styled.div`
   transition: all 0.2s ease;
   color: ${(props) => (props.IsDarkMode ? "white" : "#66546C")};
   margin-right: 50px;
+
+  @media screen and (max-width: 576px) {
+    line-height: 100px;
+    margin: 40px 0px 20px 0px;
+  }
 `;
 
 const Clock = ({ IsDarkMode }) => {

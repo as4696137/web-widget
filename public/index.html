@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Welcome to Firebase Hosting</title>
+    <title>Web Widget</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,7 +51,12 @@
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style media="screen">
+    <style>
+      html {
+        min-width: 320px;
+      }
+    </style>
+    <!-- <style media="screen">
       body {
         background: #eceff1;
         color: rgba(0, 0, 0, 0.87);
@@ -113,7 +118,7 @@
           border-top: 16px solid #ffa100;
         }
       }
-    </style>
+    </style> -->
   </head>
   <body>
     <div id="root"></div>

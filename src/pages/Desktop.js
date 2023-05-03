@@ -9,6 +9,7 @@ import moonImg from "../img/svg/darkmode_moon.svg";
 
 const Desktop = () => {
   const [IsDarkMode, setDarkMode] = useState(false);
+  const [IsMenuOpen, setMenuOpen] = useState(false);
   const darkModeHandler = (e) => {
     e.preventDefault();
     setDarkMode(!IsDarkMode);
@@ -17,14 +18,26 @@ const Desktop = () => {
   const [user, setUser] = useState(null);
 
   return (
-    <DesktopDiv IsDarkMode={IsDarkMode}>
+    <DesktopDiv IsDarkMode={IsDarkMode} IsMenuOpen={IsMenuOpen}>
       <div className="navbar">
-        <button className="darkMode" onClick={darkModeHandler}>
-          <span className="switch">
-            <img src={IsDarkMode ? moonImg : sunImg} alt="darkmode icon" />
-          </span>
+        <button
+          className="menu"
+          onClick={() => {
+            setMenuOpen(!IsMenuOpen);
+          }}
+        >
+          <div className="menu_icon icon1"></div>
+          <div className="menu_icon icon2"></div>
+          <div className="menu_icon icon3"></div>
         </button>
-        <GoogleLoginSystem user={user} setUser={setUser} />
+        <div className="navItems">
+          <button className="darkMode" onClick={darkModeHandler}>
+            <span className="switch">
+              <img src={IsDarkMode ? moonImg : sunImg} alt="darkmode icon" />
+            </span>
+          </button>
+          <GoogleLoginSystem user={user} setUser={setUser} />
+        </div>
       </div>
 
       <div className="top">

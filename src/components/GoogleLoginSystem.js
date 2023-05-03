@@ -20,6 +20,10 @@ const GoogleLoginSystem_style = styled.div`
   align-items: center;
   cursor: default;
 
+  @media screen and (max-width: 1160px) {
+    margin-right: 0px;
+  }
+
   div.icon {
     left: 0;
     height: 36px;
@@ -60,6 +64,11 @@ const GoogleLoginSystem_style = styled.div`
       overflow: hidden; /* 超出部分隱藏 */
       text-overflow: ellipsis; /* 超出部分以省略號表示 */
     }
+
+    @media screen and (max-width: 1160px) {
+      position: relative;
+      left: -22px;
+    }
   }
 
   button.login {
@@ -73,6 +82,11 @@ const GoogleLoginSystem_style = styled.div`
     filter: drop-shadow(0px 2px 6px rgba(102, 84, 108, 0.53));
     border-radius: 6px;
     z-index: 3;
+
+    @media screen and (max-width: 1160px) {
+      position: relative;
+      left: -22px;
+    }
   }
   button {
     border: 1px solid #eaeaea;
@@ -117,8 +131,16 @@ const GoogleLoginSystem_style = styled.div`
     &:hover {
       background: #66546c;
       color: #ffffff;
+      border: 1px solid #ffffff;
+    }
+
+    @media screen and (max-width: 1160px) {
+      left: unset;
+      right: 22px;
     }
   }
+
+  //all hover
   &:hover {
     button.logout {
       top: 33px;
