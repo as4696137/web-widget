@@ -31,6 +31,8 @@ const Desktop = () => {
           <div className="menu_icon icon3"></div>
         </button>
         <div className="navItems">
+          <div className="navBG BG1"></div>
+          <div className="navBG BG2"></div>
           <button className="darkMode" onClick={darkModeHandler}>
             <span className="switch">
               <img src={IsDarkMode ? moonImg : sunImg} alt="darkmode icon" />

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 //import "https://fonts.googleapis.com/css2?family=Dangrek&display=swap";
 
 //styled
@@ -37,11 +37,13 @@ export const DesktopDiv = styled.div`
   }
 
   div.navbar {
-    position: absolute;
+    position: fixed;
+    top: 0;
     width: 100%;
+    z-index: 100;
 
     button.menu {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 30px;
       height: 21px;
@@ -131,15 +133,34 @@ export const DesktopDiv = styled.div`
         height: 100%;
         top: 0;
         right: ${(props) => (props.IsMenuOpen ? "0px" : "-320px")};
-        background: ${(props) => (props.IsDarkMode ? "#66546C" : "#ffffff")};
-        box-shadow: 0px 2px 6px rgba(185, 169, 129, 0.53);
-
         flex-direction: column;
         justify-content: start;
         align-items: end;
         z-index: 50;
 
-        transition: all 0.2s ease;
+        transition: right 0.2s ease;
+
+        div.navBG {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+        div.BG1 {
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 50%
+          );
+          opacity: ${(props) => (props.IsDarkMode ? "0" : "1")};
+        }
+        div.BG2 {
+          background: linear-gradient(
+            90deg,
+            hsla(0, 0%, 0%, 0) 5%,
+            #1c151f 50%
+          );
+          opacity: ${(props) => (props.IsDarkMode ? "1" : "0")};
+        }
 
         button.darkMode {
           margin-top: 100px;
@@ -160,7 +181,7 @@ export const DesktopDiv = styled.div`
     }
 
     @media screen and (max-width: 576px) {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
   }
 
@@ -173,7 +194,7 @@ export const DesktopDiv = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: start;
+    align-items: center;
     align-content: start;
     flex-wrap: wrap;
     .littleDiv {
@@ -181,6 +202,25 @@ export const DesktopDiv = styled.div`
       width: 325px;
       height: 325px;
       border-radius: 20px;
+    }
+  }
+
+  //min height
+  @media screen and (min-height: 1080px) {
+    div.top {
+      margin: 30px 0 10px 0;
+    }
+    div.navbar {
+      top: 10px;
+    }
+  }
+
+  @media screen and (min-height: 1280px) {
+    div.top {
+      margin: 60px 0 20px 0;
+    }
+    div.navbar {
+      top: 20px;
     }
   }
 `;

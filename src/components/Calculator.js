@@ -16,7 +16,6 @@ function reducer(state, { type, payload }) {
     //按一般的數字時(包含0和.)
     case ACTIONS.ADD_DIGIT:
       if (state.overwrite) {
-        console.log("zzzzz");
         return {
           ...state,
           currentOperand: payload.digit,
@@ -147,6 +146,7 @@ function evalute({ currentOperand, previosOperand, operation }) {
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
   maximumFractionDigits: 0,
 });
+
 function formatOperand(operand) {
   if (operand == null) return;
   if (operand == 0) return 0;
@@ -172,7 +172,7 @@ const Calculator = () => {
           {formatOperand(previosOperand)}
           {operation}
         </div>
-        <div className="current-operand">{formatOperand(currentOperand)}</div>
+        <div className="current-operand">{currentOperand}</div>
       </div>
       <button
         className="span-two"

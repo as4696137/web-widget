@@ -1,16 +1,83 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
-const Underline_ani = keyframes`
-  from {
-    width: 0;
+function CustomScrollbars(props) {
+  return (
+    <Scrollbars
+      autoHide
+      autoHideTimeout={1000}
+      autoHideDuration={200}
+      style={{
+        position: "absolute",
+        top: "47px",
+        height: "238px",
+        width: "260px",
+        zIndex: "3",
+      }}
+      renderTrackVertical={({ style, ...rest }) => (
+        <div
+          {...rest}
+          style={{
+            ...style,
+            right: "2px",
+            bottom: "2px",
+            top: "2px",
+            borderRadius: "3px",
+            // left: "50%",
+            // height: "10px",
+            // width: "100px",
+            // top: 0,
+            // transform: "translateX(-50%)",
+            // zIndex: "5",
+          }}
+        />
+      )}
+      renderThumbVertical={({ style, ...rest }) => (
+        <div
+          {...rest}
+          style={{
+            ...style,
+            cursor: "pointer",
+            backgroundColor: "rgba(0,0,0,0.2)",
+            borderRadius: "inherit",
+            // left: "50%",
+            // height: "10px",
+            // width: "100px",
+            // top: 0,
+            // transform: "translateX(-50%)",
+            // zIndex: "5",
+          }}
+        />
+      )}
+    >
+      {props.children}
+    </Scrollbars>
+  );
+}
+
+export const StyledScrollbars = styled(CustomScrollbars)`
+  height: 200px;
+  width: 100px;
+
+  /* Hide the default scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
   }
-  to {
-    width: 100%;
+
+  /* Style the thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  /* Style the track */
+  ::-webkit-scrollbar-track {
+    background-color: #eee;
   }
 `;
 
 export const TodoListContainer = styled.div`
-  padding: 47px 41px 38px 42px;
+  padding: 47px 21px 38px 42px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -42,6 +109,7 @@ export const TodoItemContainer = styled.div`
   display: flex;
   align-items: flex-start;
   margin-bottom: 15px;
+  padding-right: 20px;
 `;
 
 export const TodoCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -93,6 +161,7 @@ export const TodoInput = styled.textarea`
   line-height: 26px;
   color: #595959;
 
+  white-space: pre-line;
   resize: none;
   overflow: hidden;
 

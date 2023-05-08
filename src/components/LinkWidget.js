@@ -94,8 +94,13 @@ const LinkWidget = ({ user, setUser }) => {
   const saveLinkBtnHandler = (e) => {
     e.preventDefault();
 
+    //==== 超過20個就不能加了 ====
+    if (linkList.length >= 20) {
+      console.log("max link list length.");
+    }
+
     //==== 當路徑一樣就不加新的 ====
-    if (
+    else if (
       linkList.length !== 0 &&
       editData.webName === "" &&
       editData.webLink === "" &&
@@ -174,7 +179,10 @@ const LinkWidget = ({ user, setUser }) => {
   return (
     <>
       <Title>連結收藏</Title>
-      <StyledScrollbars>
+      <StyledScrollbars
+        show_addlink_popup={show_addlink_popup}
+        show_editbutton_popup={show_editbutton_popup}
+      >
         <LinkWidget_style>
           {linkList &&
             linkList.map((link, index) => (
@@ -237,6 +245,7 @@ const LinkWidget = ({ user, setUser }) => {
                     id="web-name"
                     type="text"
                     placeholder="填寫網站名稱"
+                    maxLength="12"
                     onChange={webNameInputHandler}
                     value={inputData.webName}
                   />

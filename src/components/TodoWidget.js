@@ -5,6 +5,7 @@ import {
   TodoCheckbox,
   TodoInput,
   TodoDeleteButton,
+  StyledScrollbars,
 } from "./style components/TodoWidget_style";
 import { app, auth } from "./GoogleLoginSystem";
 import { getDatabase, ref, onValue, set } from "firebase/database";
@@ -27,30 +28,36 @@ function reducer(state, action) {
       }
 
     case "ADD_TODO":
-      if (action.payload === "onKeyPress") {
-        return [
-          ...state,
-          {
-            id: Date.now(),
-            text: "",
-            completed: false,
-            pressEnter: true,
-            newTodo: true,
-            rows: 1,
-          },
-        ];
-      } else {
-        return [
-          ...state,
-          {
-            id: Date.now(),
-            text: "",
-            completed: false,
-            newTodo: true,
-            rows: 1,
-          },
-        ];
+      if (action.payload.event === "onKeyDown") {
+        if (action.payload.IsNewTodo) {
+          return state;
+        } else {
+          console.log("asdf");
+          return [
+            ...state,
+            {
+              id: Date.now(),
+              text: "",
+              completed: false,
+              pressEnter: true,
+              newTodo: true,
+              rows: 1,
+            },
+          ];
+        }
       }
+
+      console.log("no enter");
+      return [
+        ...state,
+        {
+          id: Date.now(),
+          text: "",
+          completed: false,
+          newTodo: true,
+          rows: 1,
+        },
+      ];
 
     case "UPDATE_TODO_TEXT":
       return state.map((todo) =>
@@ -71,7 +78,7 @@ function reducer(state, action) {
       );
     case "DELETE_TODO":
       return state.filter((todo) => todo.id !== action.payload);
-    case "FOCUS_NEXT_TODO":
+    case "FOCUS_NEXT_NEW_TODO":
       return state.map((todo) =>
         todo.id === action.payload ? { ...todo, pressEnter: false } : todo
       );
@@ -152,17 +159,60 @@ const TodoWidget = ({ user, setUser }) => {
     dispatch({ type: "DELETE_TODO", payload: id });
   };
 
-  const handleTodoInputKeyPress = (event, index) => {
+  const handleTodoInputKeyDown = (event, index, todo) => {
+    // 按 Enter 鍵時，不是新增新 todo 就是 focus 到下一個 todo
     if (event.key === "Enter") {
-      if (index === todos.length - 1) {
-        dispatch({ type: "ADD_TODO", payload: event._reactName });
+      event.preventDefault();
+      if (index >= 20) {
+        console.log("max todo length.");
+      } else if (index === todos.length - 1) {
+        dispatch({
+          type: "ADD_TODO",
+          payload: { event: event._reactName, IsNewTodo: todo.newTodo },
+        });
+      } else {
+        const nextInputRef = todoInputRefs.current[index + 1];
+        if (nextInputRef) {
+          nextInputRef.focus();
+        }
+      }
+    }
+
+    console.log(event.key);
+
+    if (event.key === "ArrowUp") {
+      const previousInputRef = todoInputRefs.current[index - 1];
+      if (previousInputRef) {
+        event.preventDefault();
+        previousInputRef.focus();
+      }
+    }
+    if (event.key === "ArrowDown") {
+      const nextInputRef = todoInputRefs.current[index + 1];
+      if (nextInputRef) {
+        event.preventDefault();
+        nextInputRef.focus();
+      }
+    }
+
+    if (event.key === "Backspace") {
+      console.log("press Backspace");
+      if (todo.text.trim() === "" && index !== 0) {
+        dispatch({ type: "DELETE_TODO", payload: todo.id });
+        const previousInputRef = todoInputRefs.current[index - 1];
+        if (previousInputRef) {
+          event.preventDefault();
+          previousInputRef.focus();
+        }
       }
     }
   };
 
   const handleTodoInputBlur = (index) => {
-    if (index === todos.length - 1) {
-      dispatch({ type: "ADD_TODO" });
+    if (index >= 20) {
+      console.log("max todo length.");
+    } else if (index === todos.length - 1) {
+      dispatch({ type: "ADD_TODO", payload: { event: null } });
     }
   };
 
@@ -175,7 +225,7 @@ const TodoWidget = ({ user, setUser }) => {
           nextInputRef.focus();
         }
         console.log("YOOOOOOO");
-        dispatch({ type: "FOCUS_NEXT_TODO", payload: todo.id });
+        dispatch({ type: "FOCUS_NEXT_NEW_TODO", payload: todo.id });
       }
     });
   }, [todos, dispatch]);
@@ -191,47 +241,47 @@ const TodoWidget = ({ user, setUser }) => {
   return (
     <TodoListContainer>
       <div className="title">待辦事項</div>
-      {todos.map((todo, index) => (
-        <TodoItemContainer key={todo.id}>
-          <TodoCheckbox
-            type="checkbox"
-            checked={todo.completed}
-            disabled={todo.text.trim() === ""}
-            onChange={() => handleToggleTodoCompleted(todo.id)}
-          />
+      <StyledScrollbars>
+        {todos.map((todo, index) => (
+          <TodoItemContainer key={todo.id}>
+            <TodoCheckbox
+              type="checkbox"
+              checked={todo.completed}
+              disabled={todo.text.trim() === ""}
+              onChange={() => handleToggleTodoCompleted(todo.id)}
+            />
 
-          <TodoInput
-            rows={todo.rows}
-            value={todo.text}
-            isNull={todo.text.trim() === "" ? true : false}
-            completed={todo.completed}
-            onChange={(e) => handleUpdateTodoText(todo.id, e.target.value, e)}
-            onKeyPress={(e) => {
-              if (todo.text.trim() !== "") {
-                handleTodoInputKeyPress(e, index);
+            <TodoInput
+              rows={todo.rows}
+              value={todo.text}
+              isNull={todo.text.trim() === "" ? true : false}
+              completed={todo.completed}
+              onChange={(e) => handleUpdateTodoText(todo.id, e.target.value, e)}
+              onKeyDown={(e) => {
+                handleTodoInputKeyDown(e, index, todo);
+              }}
+              onBlur={() => {
+                if (todo.text.trim() !== "") {
+                  handleTodoInputBlur(index);
+                }
+              }}
+              ref={(input) => (todoInputRefs.current[index] = input)}
+            />
+            <TodoDeleteButton
+              onClick={() => {
+                if (todo.newTodo || todos.length !== 1) {
+                  handleDeleteTodo(todo.id);
+                }
+              }}
+              disabled={
+                todo.newTodo || todos.length === 1 || todo.text.trim() === ""
               }
-            }}
-            onBlur={() => {
-              if (todo.text.trim() !== "") {
-                handleTodoInputBlur(index);
-              }
-            }}
-            ref={(input) => (todoInputRefs.current[index] = input)}
-          />
-          <TodoDeleteButton
-            onClick={() => {
-              if (todo.newTodo || todos.length !== 1) {
-                handleDeleteTodo(todo.id);
-              }
-            }}
-            disabled={
-              todo.newTodo || todos.length === 1 || todo.text.trim() === ""
-            }
-          >
-            <img src={deleteBtnImg} alt="delete button" />
-          </TodoDeleteButton>
-        </TodoItemContainer>
-      ))}
+            >
+              <img src={deleteBtnImg} alt="delete button" />
+            </TodoDeleteButton>
+          </TodoItemContainer>
+        ))}
+      </StyledScrollbars>
     </TodoListContainer>
   );
 };

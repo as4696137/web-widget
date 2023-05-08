@@ -13,6 +13,49 @@ function CustomScrollbars(props) {
         height: "250px",
         zIndex: "3",
       }}
+      renderTrackVertical={({ style, ...rest }) => (
+        <div
+          {...rest}
+          style={{
+            ...style,
+            right: "2px",
+            bottom: "2px",
+            top: "2px",
+            borderRadius: "3px",
+            display:
+              props.show_addlink_popup || props.show_editbutton_popup
+                ? "none"
+                : "block",
+            // left: "50%",
+            // height: "10px",
+            // width: "100px",
+            // top: 0,
+            // transform: "translateX(-50%)",
+            // zIndex: "5",
+          }}
+        />
+      )}
+      renderThumbVertical={({ style, ...rest }) => (
+        <div
+          {...rest}
+          style={{
+            ...style,
+            cursor: "pointer",
+            backgroundColor: "rgba(0,0,0,0.2)",
+            borderRadius: "inherit",
+            display:
+              props.show_addlink_popup || props.show_editbutton_popup
+                ? "none"
+                : "block",
+            // left: "50%",
+            // height: "10px",
+            // width: "100px",
+            // top: 0,
+            // transform: "translateX(-50%)",
+            // zIndex: "5",
+          }}
+        />
+      )}
     >
       {props.children}
     </Scrollbars>
@@ -136,6 +179,9 @@ export const LinkWidget_style = styled.div`
     }
 
     p {
+      max-width: 60px;
+      word-wrap: break-word;
+      text-align: center;
       font-family: "Noto Sans TC";
       font-weight: 500;
       font-size: 10px;

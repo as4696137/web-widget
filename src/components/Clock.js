@@ -11,7 +11,7 @@ const ClockDiv = styled.div`
 
   @media screen and (max-width: 576px) {
     line-height: 100px;
-    margin: 40px 0px 20px 0px;
+    margin: 5px 0px 20px 0px;
   }
 `;
 

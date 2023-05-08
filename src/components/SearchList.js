@@ -140,7 +140,9 @@ const SearchList = ({
 
   //==== click + button and add stock to adding list
   const addStockHandler = (d) => {
-    if (!addingList.some((obj) => obj.Code === d.Code)) {
+    if (addingList.length >= 20) {
+      console.log("max stock length.");
+    } else if (!addingList.some((obj) => obj.Code === d.Code)) {
       setAddingList([...addingList, d]);
       setInput("");
     }

@@ -47,6 +47,7 @@ const WeatherDiv = styled.div`
 
   @media screen and (max-width: 576px) {
     justify-content: center;
+    margin-top: 30px;
     div.weatherInfo {
       margin-left: 10px;
       p.temp {
