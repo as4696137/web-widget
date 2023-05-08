@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import WatchingList from "./WatchingList";
 import SearchList from "./SearchList";
+import getTW_all_stocks_local from "../data/STOCK_DAY_AVG_ALL.json";
 import { app, auth } from "./GoogleLoginSystem";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
@@ -72,6 +73,7 @@ const StockWidget = ({ user, setUser }) => {
   const [watchingList, setWatchingList] = useState([]);
   const [isClosed, setIsClosed] = useState();
   let [updateTimer, setUpdateTimer] = useState(0);
+
   //==== get tw stock all data
   const getTW_all_stocks = async () => {
     try {
@@ -81,7 +83,8 @@ const StockWidget = ({ user, setUser }) => {
       let dj = await d.json();
       setTwAllData(dj);
     } catch (err) {
-      console.log(err);
+      let dj = getTW_all_stocks_local;
+      setTwAllData(dj);
     }
   };
 

@@ -119,8 +119,10 @@ export const DesktopDiv = styled.div`
     //div.navbar media
     @media screen and (max-width: 1160px) {
       height: 100%;
-      width: 100%;
+      width: 320px;
+      right: 0;
       overflow: hidden;
+      z-index: ${(props) => (props.IsMenuOpen ? "1" : "-1")};
       button.menu {
         position: absolute;
         display: flex;
