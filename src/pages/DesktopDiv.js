@@ -122,7 +122,7 @@ export const DesktopDiv = styled.div`
       width: 320px;
       right: 0;
       overflow: hidden;
-      z-index: ${(props) => (props.IsMenuOpen ? "1" : "-1")};
+      z-index: ${(props) => (props.IsMenuOpen ? "1" : "0")};
       button.menu {
         position: absolute;
         display: flex;
@@ -207,7 +207,7 @@ export const DesktopDiv = styled.div`
     }
   }
 
-  //min height
+  //min height 讓高度過高時元素可以往下置中一點
   @media screen and (min-height: 1080px) {
     div.top {
       margin: 30px 0 10px 0;

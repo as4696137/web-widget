@@ -147,6 +147,7 @@ const ChangePriceColor = styled.p`
       ? "#82F29B"
       : "#717171"};
 `;
+console.log(ChangePriceColor);
 
 const WatchingList = ({ watchingList, addingList, setAddingList }) => {
   const deleteBtnHandler = (id) => {
@@ -175,10 +176,12 @@ const WatchingList = ({ watchingList, addingList, setAddingList }) => {
                     <p className="price">{obj.price}</p>
                     <div className="change">
                       <ChangePriceColor obj={obj}>
-                        {obj.change}
+                        {obj.change > 0 ? `+${obj.change}` : obj.change}
                       </ChangePriceColor>
                       <ChangePriceColor obj={obj}>
-                        {obj.changePercent}%
+                        {obj.changePercent > 0
+                          ? `+${obj.changePercent}%`
+                          : `${obj.changePercent}%`}
                       </ChangePriceColor>
                     </div>
                   </div>
