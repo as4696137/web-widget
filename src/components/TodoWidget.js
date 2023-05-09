@@ -256,6 +256,7 @@ const TodoWidget = ({ user, setUser }) => {
               value={todo.text}
               isNull={todo.text.trim() === "" ? true : false}
               completed={todo.completed}
+              placeholder="接下來要..."
               onChange={(e) => handleUpdateTodoText(todo.id, e.target.value, e)}
               onKeyDown={(e) => {
                 handleTodoInputKeyDown(e, index, todo);

@@ -1,24 +1,17 @@
-var isPalindrome = function (x) {
-  if (x < 0) {
-    return false;
-  }
-  let xDigit = Math.floor(Math.log(x) / Math.log(10)) + 1;
-  let xToArray = [];
-  let costNumber = x;
-  for (let i = 0; i < xDigit; i++) {
-    let leftN = x % Math.pow(10, xDigit - i - 1);
-    let pushN = (costNumber - leftN) / Math.pow(10, xDigit - i - 1);
-    xToArray.push(pushN);
-    costNumber = leftN;
-  }
-
-  for (let j = 0; j <= Math.floor(xToArray.length / 2) - 1; j++) {
-    if (xToArray[j] !== xToArray[xToArray.length - j - 1]) {
-      return false;
-    }
-  }
-
-  return true;
+var name = "小明";
+var obj = {
+  x: {
+    name: "小虎",
+    myname: function () {
+      console.log(this.name);
+      setTimeout(function () {
+        console.log(this.name);
+      }, 500);
+    },
+  },
+  y: "2",
+  name: "小王",
 };
 
-console.log(isPalindrome(321));
+var a = obj.x.myname();
+a;

@@ -217,7 +217,7 @@ const StockWidget = ({ user, setUser }) => {
     <SearchDiv>
       <div className="title">查看股票</div>
       <input
-        placeholder="請輸入股票代號或名稱"
+        placeholder="請輸入股票代號或名稱..."
         onCompositionStart={searchInputHandler}
         onCompositionUpdate={searchInputHandler}
         onCompositionEnd={searchInputHandler}

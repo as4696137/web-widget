@@ -176,6 +176,9 @@ export const TodoInput = styled.textarea`
   &:focus-visible {
     outline: none;
   }
+  &::placeholder {
+    opacity: 0.5;
+  }
 `;
 
 export const TodoDeleteButton = styled.button`
