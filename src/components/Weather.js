@@ -35,7 +35,15 @@ const WeatherDiv = styled.div`
       line-height: 32px;
     }
   }
-
+  div.noData {
+    font-family: "Noto Sans TC", sans-serif;
+    width: 70%;
+    text-align: justify;
+    letter-spacing: 0.09em;
+    font-weight: 400;
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
   @media screen and (max-width: 768px) {
     div.weatherInfo {
       margin-left: 15px;
@@ -63,6 +71,7 @@ const Weather = ({ IsDarkMode }) => {
   const [data, setData] = useState(null);
   let key = "13afc153498cdf4954b987b271d7805c";
   let lang = "zh_tw";
+
   //location
   useEffect(() => {
     // Check if geolocation is available
@@ -146,6 +155,11 @@ const Weather = ({ IsDarkMode }) => {
           <p className="desc">
             {Object.keys(data).length !== 0 && `${data.weather[0].description}`}
           </p>
+        </div>
+      )}
+      {!data && (
+        <div className="noData">
+          {":( 沒有位置資訊，請在設定中允許存取位置資訊來顯示天氣。"}
         </div>
       )}
     </WeatherDiv>
