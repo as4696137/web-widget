@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 //import "https://fonts.googleapis.com/css2?family=Dangrek&display=swap";
 
 //styled
@@ -41,42 +41,6 @@ export const DesktopDiv = styled.div`
     top: 0;
     width: 100%;
     z-index: 100;
-
-    button.menu {
-      position: fixed;
-      display: none;
-      width: 30px;
-      height: 21px;
-      background: none;
-      border: none;
-      right: 20px;
-      top: 20px;
-      z-index: 51;
-      cursor: pointer;
-
-      div.menu_icon {
-        width: 100%;
-        height: 3px;
-        background-color: ${(props) =>
-          props.IsDarkMode ? "#ffffff" : "#66546c"};
-        transition: all 0.2s ease;
-      }
-      div.icon1 {
-        transform: ${(props) =>
-          props.IsMenuOpen
-            ? "rotate(45deg) translateY(8px) translateX(5px)"
-            : "rotate(0deg) translateY(0)"};
-      }
-      div.icon2 {
-        opacity: ${(props) => (props.IsMenuOpen ? "0" : "1")};
-      }
-      div.icon3 {
-        transform: ${(props) =>
-          props.IsMenuOpen
-            ? "rotate(-45deg) translateY(-8px) translateX(5px)"
-            : "rotate(0deg) translateY(0)"};
-      }
-    }
 
     div.navItems {
       width: 100%;
@@ -122,25 +86,18 @@ export const DesktopDiv = styled.div`
       width: 320px;
       right: 0;
       overflow: hidden;
-      z-index: ${(props) => (props.IsMenuOpen ? "1" : "0")};
-      button.menu {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
+      transition: right 0.2s ease;
+      right: ${(props) => (props.IsMenuOpen ? "0px" : "-320px")};
+
       div.navItems {
         position: fixed;
         width: 320px;
         height: 100%;
         top: 0;
-        right: ${(props) => (props.IsMenuOpen ? "0px" : "-320px")};
+
         flex-direction: column;
         justify-content: start;
         align-items: end;
-        z-index: 50;
-
-        transition: right 0.2s ease;
 
         div.navBG {
           position: absolute;
@@ -168,6 +125,48 @@ export const DesktopDiv = styled.div`
           margin-top: 100px;
         }
       }
+    }
+  }
+
+  button.menu {
+    position: fixed;
+    display: none;
+    width: 30px;
+    height: 21px;
+    background: none;
+    border: none;
+    right: 20px;
+    top: 20px;
+    z-index: 120;
+    cursor: pointer;
+
+    div.menu_icon {
+      width: 100%;
+      height: 3px;
+      background-color: ${(props) =>
+        props.IsDarkMode ? "#ffffff" : "#66546c"};
+      transition: all 0.2s ease;
+    }
+    div.icon1 {
+      transform: ${(props) =>
+        props.IsMenuOpen
+          ? "rotate(45deg) translateY(8px) translateX(5px)"
+          : "rotate(0deg) translateY(0)"};
+    }
+    div.icon2 {
+      opacity: ${(props) => (props.IsMenuOpen ? "0" : "1")};
+    }
+    div.icon3 {
+      transform: ${(props) =>
+        props.IsMenuOpen
+          ? "rotate(-45deg) translateY(-8px) translateX(5px)"
+          : "rotate(0deg) translateY(0)"};
+    }
+
+    @media screen and (max-width: 1160px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 
@@ -199,11 +198,13 @@ export const DesktopDiv = styled.div`
     align-items: center;
     align-content: start;
     flex-wrap: wrap;
+
     .littleDiv {
       margin: 15px;
       width: 325px;
       height: 325px;
       border-radius: 20px;
+      z-index: 30;
     }
   }
 

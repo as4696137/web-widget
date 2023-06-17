@@ -20,16 +20,6 @@ const Desktop = () => {
   return (
     <DesktopDiv IsDarkMode={IsDarkMode} IsMenuOpen={IsMenuOpen}>
       <div className="navbar">
-        <button
-          className="menu"
-          onClick={() => {
-            setMenuOpen(!IsMenuOpen);
-          }}
-        >
-          <div className="menu_icon icon1"></div>
-          <div className="menu_icon icon2"></div>
-          <div className="menu_icon icon3"></div>
-        </button>
         <div className="navItems">
           <div className="navBG BG1"></div>
           <div className="navBG BG2"></div>
@@ -41,6 +31,18 @@ const Desktop = () => {
           <GoogleLoginSystem user={user} setUser={setUser} />
         </div>
       </div>
+
+      {/* navbar button */}
+      <button
+        className="menu"
+        onClick={() => {
+          setMenuOpen(!IsMenuOpen);
+        }}
+      >
+        <div className="menu_icon icon1"></div>
+        <div className="menu_icon icon2"></div>
+        <div className="menu_icon icon3"></div>
+      </button>
 
       <div className="top">
         <Clock IsDarkMode={IsDarkMode} />

@@ -25,21 +25,9 @@ const db = getDatabase(app);
 const LinkWidget = ({ user, setUser }) => {
   const [linkList, setLinkList] = useState([
     { title: "YouTube", url: "https://www.youtube.com/" },
-    {
-      title: "個人頁面",
-      url: "https://creator.line.me/my/eQ0LeWMXRKbbILV5/sticker/",
-    },
     { title: "翻譯", url: "https://translate.google.com.tw/?hl=zh-TW" },
-    { title: "原價屋", url: "https://www.coolpc.com.tw/evaluate.php" },
-    { title: "trading", url: "https://www.tradingview.com/" },
-    { title: "試算表", url: "https://docs.google.com/spreadsheets/u/0/" },
-    { title: "Poe", url: "https://poe.com/sage" },
-    { title: "Openai", url: "https://openai.com/" },
-    { title: "medium", url: "https://medium.com/" },
     { title: "Gmail", url: "https://mail.google.com/" },
     { title: "MDN", url: "https://developer.mozilla.org/" },
-    { title: "npm", url: "https://www.npmjs.com/" },
-    { title: "React", url: "https://legacy.reactjs.org/" },
   ]);
   const [show_addlink_popup, set_show_addlink_popup] = useState(false);
   const [show_editbutton_popup, set_show_editbutton_popup] = useState(false);
