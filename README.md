@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+[![Widget Website Design](https://img.shields.io/badge/Widget%20Website%20Design-Project%20Description-blueviolet)](https://github.com/your-repo)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a widget-based website that integrates various functionalities such as a clock, weather display, to-do list, calculator, stock lookup, and bookmark manager. It supports dark mode and includes a Google login system for saving widget configurations.
 
-## Available Scripts
+### Technologies Used
 
-In the project directory, you can run:
+- **React**: Used as the framework for developing the website and implementing different hooks for each functionality.
+- **Firebase Authentication**: Integrated for user login with Google accounts.
+- **Firebase Realtime Database**: Utilized to store user data and widget settings.
+- **OpenWeather API**: Accessed to retrieve local weather information.
+- **Taiwan Stock Exchange OpenAPI**: Used to fetch stock symbols and names.
+- **Fugle Real-Time Quote API**: Retrieved real-time stock quotes.
+- **my.faviconkit API**: Utilized to fetch the favicons of bookmarks.
 
-### `npm start`
+### Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Login System**: Enables users to log in with their Google accounts, storing their widget configurations in the Firebase Realtime Database.
+- **Weather Display**: Fetches local weather information and displays it on the website.
+- **To-Do List**: Allows users to manage their to-do tasks, with data stored in the Firebase Realtime Database.
+- **Calculator**: Provides a calculator with arithmetic functionality.
+- **Stock Lookup**: Retrieves real-time stock quotes and manages a user's stock watchlist.
+- **Bookmark Manager**: Enables users to save and manage bookmarks, with favicons fetched using the my.faviconkit API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Please refer to the [repository](https://github.com/as4696137/web-widget/tree/master) for detailed information and code implementation.
