@@ -19,6 +19,6 @@ This project is a widget-based website that integrates various functionalities s
 - **To-Do List**: Allows users to manage their to-do tasks, with data stored in the Firebase Realtime Database.
 - **Calculator**: Provides a calculator with arithmetic functionality.
 - **Stock Lookup**: Retrieves real-time stock quotes and manages a user's stock watchlist.
-- **Bookmark Manager**: Enables users to save and manage bookmarks, with favicons fetched using the my.faviconkit API.
+- **Links Manager**: Enables users to save and manage links, with favicons fetched using the my.faviconkit API.
 
 Please refer to the [repository](https://github.com/as4696137/web-widget/tree/master) for detailed information and code implementation.
